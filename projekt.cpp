@@ -1,8 +1,25 @@
-#include <stdio.h>
+
+#include <cstdlib>
+#include <ctime>
+#include <iostream>
+#include <fstream>
+#include <algorithm>
 #include <conio.h>
-#include <time.h>
-#include <stdlib.h>
 #include <unistd.h>
+
+using namespace std;
+
+struct Ucenik
+{
+    char imePrezime[50];
+    float prosjek;
+};
+bool cmpp(Ucenik &a, Ucenik &b)
+{
+    return a.prosjek > b.prosjek;
+}
+
+
 
 int main()
 {
