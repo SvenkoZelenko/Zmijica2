@@ -18,7 +18,6 @@ bool cmpp(Ucenik &a, Ucenik &b)
 {
     return a.prosjek > b.prosjek;
 }
-
 int main()
 {
     int izbor, action2;
@@ -36,16 +35,16 @@ int main()
     {
     izbornik:
         system("cls");
-        printf(" _______ ___ ___ _______   _____ _______ ______ _______  \n");
-        printf("|__     |   |   |_     _|_|     |_     _|      |   _   | \n");
-        printf("|     __|       |_|   |_|       |_|   |_|   ---|       | \n");
-        printf("|_______|__|_|__|_______|_______|_______|______|___|___| \n");
-        printf("####################\n");
-        printf("1: Ulazak u igricu\n");
-        printf("2: Zasluge\n");
-        printf("3: O igrici\n");
-        printf("4: Izlazak\n");
-        printf("####################");
+        cout << " _______ ___ ___ _______   _____ _______ ______ _______ " << endl;
+        cout << "|__     |   |   |_     _|_|     |_     _|      |   _   |" << endl;
+        cout << "|     __|       |_|   |_|       |_|   |_|   ---|       |" << endl;
+        cout << "|_______|__|_|__|_______|_______|_______|______|___|___|" << endl;
+        cout << "####################" << endl;
+        cout << "1: Ulazak u igricu" << endl;
+        cout << "2: Zasluge " << endl;
+        cout << "3: O igrici " << endl;
+        cout << "4: Izlazak" << endl;
+        cout << "####################" << endl;
 
         action2 = getch();
 
@@ -128,18 +127,20 @@ int main()
                 for (int i = 0; i < 15; i++)
                 {
                     for (int j = 0; j < 15; j++)
-                        printf("%c ", polje[i][j]);
-                    printf("\n");
+                        cout << polje[i][j] << endl;
+                    cout << endl;
                 }
 
                 // tekst ispod programa
-                printf("Rezultat: %d\n", score);
-                printf("Da izadete iz programa, pritisnite 'x'\n");
+                cout << "Rezultat:" << score << endl;
+                cout << "Da izadete iz programa, pritisnite 'x'\n"
+                     << endl;
 
                 // gleda da li se zmijica zabila u zid
                 if (x >= 14 || x <= 0 || y >= 14 || y <= 0)
                 {
-                    printf("Izgubili ste :(\n");
+                    cout << "Izgubili ste :(\n"
+                         << endl;
                     break;
                 }
                 usleep(40000);
@@ -150,17 +151,17 @@ int main()
         {
             system("cls");
             usleep(1500000);
-            printf("------------------------\n");
+            cout << "------------------------" << endl;
             usleep(1500000);
-            printf("Isprogramirali:\n");
+            cout << "Isprogramirali:" << endl;
             usleep(1500000);
-            printf("Martin Gorisek\n");
+            cout << "Paula Luheni" << endl;
             usleep(1500000);
-            printf("Sven Becki\n");
+            cout << "Sven Becki" << endl;
             usleep(1500000);
-            printf("Pomogao:\n");
+            cout << "Pomogao" << endl;
             usleep(1500000);
-            printf("IT PhD na YouTube '13) C language. Roguelike game with conio.h'\n");
+            cout << "IT PhD na YouTube '13) C language. Roguelike game with conio.h'" << endl;
             sleep(10);
             goto izbornik;
         }
@@ -168,29 +169,28 @@ int main()
         {
             system("cls");
             usleep(1500000);
-            printf(" _______ ___ ___ _______   _____ _______ ______ _______  \n");
-            printf("|__     |   |   |_     _|_|     |_     _|      |   _   | \n");
-            printf("|     __|       |_|   |_|       |_|   |_|   ---|       | \n");
-            printf("|_______|__|_|__|_______|_______|_______|______|___|___| \n");
-            printf("\n");
+            cout << " _______ ___ ___ _______   _____ _______ ______ _______ " << endl;
+            cout << "|__     |   |   |_     _|_|     |_     _|      |   _   |" << endl;
+            cout << "|     __|       |_|   |_|       |_|   |_|   ---|       |" << endl;
+            cout << "|_______|__|_|__|_______|_______|_______|______|___|___|" << endl;
             usleep(1500000);
-            printf("Originalnu igricu dizajnirao Gremlin industries.\n");
+            cout << "Originalnu igricu dizajnirao Gremlin industries." << endl;
             usleep(1500000);
-            printf("Bila je dostupna na arkadnim masinama vec 1976.\n");
+            cout << "Bila je dostupna na arkadnim masinama vec 1976." << endl;
             usleep(1500000);
-            printf("Originalno ime je bilo 'Blockade'.\n");
+            cout << "Originalno ime je bilo 'Blockade'." << endl;
             usleep(1500000);
-            printf("Nalazi se na skoro svim modelima Nokie od 1997.\n");
+            cout << "Nalazi se na skoro svim modelima Nokie od 1997." << endl;
             usleep(1000000);
-            printf("-------------------------------------------------------\n");
+            cout << "-------------------------------------------------------" << endl;
             usleep(1500000);
-            printf("Nasa verzija je jednostavnija.\n");
+            cout << "Nasa verzija je jednostavnija." << endl;
             usleep(1500000);
-            printf("Nema aspekt 'repa' zbog kompliciranosti.\n");
+            cout << "Nema aspekt 'repa' zbog kompliciranosti." << endl;
             usleep(1500000);
-            printf("Ali se zato u nasoj verziji 'jabuka' pomice svake 3 sekunde kako bi se napravio izazov.\n");
+            cout << "Ali se zato u nasoj verziji 'jabuka' pomice svake 3 sekunde kako bi se napravio izazov." << endl;
             usleep(1500000);
-            printf("Takoder je igrac nagraden bodovima, 5 za svaku jabuku pojedenu, a ako igrac ne pojede jabuku na vrjeme gubi 1 bod.\n");
+            cout << "Takoder je igrac nagraden bodovima, 5 za svaku jabuku pojedenu, a ako igrac ne pojede jabuku na vrjeme gubi 1 bod." << endl;
             sleep(10);
             goto izbornik;
         }
