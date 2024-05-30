@@ -9,7 +9,7 @@ using namespace std;
 
 struct Igrac
 {
-    char igrac[5];
+    char ime[5];
     int score;
 };
 bool cmp(Igrac &a, Igrac &b)
@@ -28,9 +28,12 @@ int main()
     int score = 1;
     time_t diraoJabuku;
 
+    ofstream outDatoteka("C:\\Users\\Svenko\\Documents\\GitHub\\projektni_SvenBecki\\leaderboard.bin", ios::binary | ios::trunc);
+    outDatoteka.close();
+
     // za leaderboard
     struct Igrac igraci[10];
-    int brIgraca = 0;
+    int brIgraca = -1;
     while (1)
     {
     izbornik:
@@ -61,7 +64,8 @@ int main()
             xx = rand() % 13 + 1;
             yy = rand() % 13 + 1;
 
-            brIgraca++;
+            cout << "Unesite 4-slovno ime: ";
+            cin.getline(igraci[brIgraca].ime, 5);
             do
             {
                 system("cls");
@@ -144,6 +148,12 @@ int main()
                     cout << "Izgubili ste!" << endl;
                     usleep(1500000);
                     cout << "Rezultat: " << score << endl;
+                    igraci[brIgraca].score = score;
+
+                    ofstream inDatoteka("C:\\Users\\Svenko\\Documents\\GitHub\\projektni_SvenBecki\\leaderboard.bin", ios::binary | ios::app);
+                    inDatoteka.write((char *)&igraci[brIgraca], sizeof(Igrac));
+                    inDatoteka.close();
+                    brIgraca++;
                     usleep(1500000);
                     goto izbornik;
                 }
@@ -152,7 +162,24 @@ int main()
         }
         if (action2 == '2')
         {
-           
+            ifstream inDatoteka("C:\\Users\\Svenko\\Documents\\GitHub\\projektni_SvenBecki\\leaderboard.bin", ios::binary);
+            int citac = 0;
+            while (inDatoteka.read((char *)&igraci[citac], sizeof(Igrac)))
+            {
+                citac++;
+            }
+            inDatoteka.close();
+
+            sort(igraci, igraci + citac, cmp);
+
+            system("cls");
+            cout << "Ljestvica:" << endl;
+            for (int i = 0; i < citac; i++)
+            {
+                cout << igraci[i].ime << " " << igraci[i].score << endl;
+            }
+            cout << "Pritisnite bilo koju tipku za povratak na izbornik" << endl;
+            getch();
         }
         if (action2 == '4')
         {
