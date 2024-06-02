@@ -28,6 +28,7 @@ int main()
     int score = 1;
     time_t diraoJabuku;
 
+    // brise se prijasnja informacija u datoteci
     ofstream outDatoteka("C:\\Users\\Svenko\\Documents\\GitHub\\projektni_SvenBecki\\leaderboard.bin", ios::binary | ios::trunc);
     outDatoteka.close();
 
@@ -64,6 +65,7 @@ int main()
             xx = rand() % 13 + 1;
             yy = rand() % 13 + 1;
 
+            // unos imena
             cout << "Unesite 4-slovno ime: ";
             cin.getline(igraci[brIgraca].ime, 5);
             do
@@ -75,19 +77,19 @@ int main()
                 {
                     action1 = getch();
                 }
-                else if (action1 == 'w' && x > 0)
+                else if (action1 == 'w' || action1 == 'W' && x > 0)
                 {
                     x--;
                 }
-                else if (action1 == 's' && x < 14)
+                else if (action1 == 's' || action1 == 'S' && x < 14)
                 {
                     x++;
                 }
-                else if (action1 == 'a' && y > 0)
+                else if (action1 == 'a' || action1 == 'A' && y > 0)
                 {
                     y--;
                 }
-                else if (action1 == 'd' && y < 14)
+                else if (action1 == 'd' || action1 == 'D' && y < 14)
                 {
                     y++;
                 }
@@ -148,12 +150,15 @@ int main()
                     cout << "Izgubili ste!" << endl;
                     usleep(1500000);
                     cout << "Rezultat: " << score << endl;
-                    igraci[brIgraca].score = score;
 
+                    igraci[brIgraca].score = score; // sejvanje scorea u strukturu
+
+                    // zapisivanje u datoteku
                     ofstream inDatoteka("C:\\Users\\Svenko\\Documents\\GitHub\\projektni_SvenBecki\\leaderboard.bin", ios::binary | ios::app);
                     inDatoteka.write((char *)&igraci[brIgraca], sizeof(Igrac));
                     inDatoteka.close();
                     brIgraca++;
+
                     usleep(1500000);
                     goto izbornik;
                 }
@@ -166,7 +171,7 @@ int main()
             int citac = 0;
             while (inDatoteka.read((char *)&igraci[citac], sizeof(Igrac)))
             {
-                citac++;
+                citac++; // tako da zna koliko je procitano igraca, svaki put kad procita igraca poveca
             }
             inDatoteka.close();
 
