@@ -29,7 +29,7 @@ int main()
     time_t diraoJabuku;
 
     // brise se prijasnja informacija u datoteci
-    ofstream outDatoteka("C:\\Users\\Svenko\\Documents\\GitHub\\projektni_SvenBecki\\leaderboard.bin", ios::binary | ios::trunc);
+    ofstream outDatoteka("leaderboard.bin", ios::binary | ios::trunc);
     outDatoteka.close();
 
     // za leaderboard
@@ -154,7 +154,7 @@ int main()
                     igraci[brIgraca].score = score; // sejvanje scorea u strukturu
 
                     // zapisivanje u datoteku
-                    ofstream inDatoteka("C:\\Users\\Svenko\\Documents\\GitHub\\projektni_SvenBecki\\leaderboard.bin", ios::binary | ios::app);
+                    ofstream inDatoteka("leaderboard.bin", ios::binary | ios::app);
                     inDatoteka.write((char *)&igraci[brIgraca], sizeof(Igrac));
                     inDatoteka.close();
                     brIgraca++;
@@ -167,7 +167,7 @@ int main()
         }
         if (action2 == '2')
         {
-            ifstream inDatoteka("C:\\Users\\Svenko\\Documents\\GitHub\\projektni_SvenBecki\\leaderboard.bin", ios::binary);
+            ifstream inDatoteka("leaderboard.bin", ios::binary);
             int citac = 0;
             while (inDatoteka.read((char *)&igraci[citac], sizeof(Igrac)))
             {
