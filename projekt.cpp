@@ -19,6 +19,7 @@ bool cmp(Igrac &a, Igrac &b)
 int main()
 {
     int izbor, action2;
+    int n = 1500000;
     int i, j;
     char polje[15][15];
     char action1;
@@ -34,7 +35,7 @@ int main()
 
     // za leaderboard
     struct Igrac igraci[10];
-    int brIgraca = -1;
+    int brIgraca = 0;
     while (1)
     {
     izbornik:
@@ -151,15 +152,32 @@ int main()
                     usleep(1500000);
                     cout << "Rezultat: " << score << endl;
 
-                    igraci[brIgraca].score = score; // sejvanje scorea u strukturu
+                    bool postoji = false;
+                    for (int i = 0; i < brIgraca; i++)
+                    {
+                        if (strcmp(igraci[i].ime, igraci[brIgraca].ime) == 0)  //igraci[i].ime --> trenutni igrac iz polja, igraci[brIgraca].ime --> ko je igrao sad
+                        {
+                            if (score > igraci[i].score)
+                            {
+                                igraci[i].score = score;
+                            }
+                            postoji = true;
+                            break;
+                        }
+                    }
+
+                    if (!postoji)
+                    {
+                        igraci[brIgraca].score = score;
+                        brIgraca++;
+                    }
 
                     // zapisivanje u datoteku
-                    ofstream inDatoteka("leaderboard.bin", ios::binary | ios::app);
-                    inDatoteka.write((char *)&igraci[brIgraca], sizeof(Igrac));
+                    ofstream inDatoteka("leaderboard.bin", ios::binary | ios::trunc);
+                    inDatoteka.write((char *)igraci, sizeof(Igrac)*brIgraca);
                     inDatoteka.close();
-                    brIgraca++;
 
-                    usleep(1500000);
+                    usleep(n);
                     goto izbornik;
                 }
                 usleep(40000);
@@ -170,7 +188,7 @@ int main()
             ifstream inDatoteka("leaderboard.bin", ios::binary);
             int citac = 0;
             while (inDatoteka.read((char *)&igraci[citac], sizeof(Igrac)))
-            {
+            {   
                 citac++; // tako da zna koliko je procitano igraca, svaki put kad procita igraca poveca
             }
             inDatoteka.close();
