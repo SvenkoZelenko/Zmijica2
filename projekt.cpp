@@ -2,6 +2,7 @@
 #include <conio.h>
 #include <cstdlib>
 #include <unistd.h>
+#include <string>
 #include <fstream>
 #include <algorithm>
 
@@ -28,6 +29,10 @@ int main()
     int jabuka = 0;
     int score = 1;
     time_t diraoJabuku;
+    bool BoljeJabuke = false;
+    bool EkstraZivot = false;
+    bool ManjeBombi = false;
+    bool ViseJabuka = false;
 
     // brise se prijasnja informacija u datoteci
     ofstream outDatoteka("leaderboard.bin", ios::binary | ios::trunc);
@@ -36,6 +41,7 @@ int main()
     // za leaderboard
     struct Igrac igraci[10];
     int brIgraca = 0;
+
     while (1)
     {
     izbornik:
@@ -55,7 +61,7 @@ int main()
 
         if (action2 == '1')
         {
-
+        pocetak:
             x = 4;
             y = 4;
             jabuka = 0;
@@ -116,7 +122,7 @@ int main()
                 if (x == xx && y == yy)
                 {
                     jabuka = 0;
-                    score += 6;
+                    score += BoljeJabuke ? 11 : 6;
                     diraoJabuku = time(NULL);
                 }
 
@@ -148,6 +154,10 @@ int main()
                 // gleda da li se zmijica zabila u zid
                 if (x >= 14 || x <= 0 || y >= 14 || y <= 0)
                 {
+                    if (EkstraZivot == true){
+                        EkstraZivot = false;
+                        goto pocetak;
+                    }
                     cout << "Izgubili ste!" << endl;
                     usleep(1500000);
                     cout << "Rezultat: " << score << endl;
@@ -204,8 +214,39 @@ int main()
             cout << "Pritisnite bilo koju tipku za povratak na izbornik" << endl;
             getch();
         }
-        if (action2 == '3')
-        { // ducan 1. -2 speed za zmijucu, 2.dodatni extra 1 život, 3. malo vise jabuka onak 2x, 4. myb onak da nestaju bumbice  5. bonus pointovi kad se pojede jabuka (2x)
+        if (action2 == '3') // ducan 1. -2 speed za zmijucu, 2.dodatni extra 1 život, 3. malo vise jabuka onak 2x, 4. myb onak da nestaju bumbice  5. bonus pointovi kad se pojede jabuka (2x)
+        {
+            ifstream ducan("shop.txt");
+            string citac;
+            system("cls");
+            while (getline(ducan, citac))
+            {
+                cout << citac << endl;
+            }
+            cout << "Vas trenutacni iznos: " << score << endl;
+            cout << "Unesite sto zelite kupiti ili unesite 0 da se vratite u izbornik: " << endl;
+            char izbor = getch();
+            if (izbor == '1' && score >= 10)
+            {
+                score -= 10;
+                BoljeJabuke = true;
+
+                cout << "Kupili ste BoljeJabuke" << endl;
+                cout << "Ostatak: " << score << endl;
+            }
+            if (izbor == '2' && score >= 15)
+            {
+                score -= 10;
+                EkstraZivot = true;
+
+                cout << "Kupili ste EkstraZivot" << endl;
+                cout << "Ostatak: " << score << endl;
+            }
+            else if (izbor != '0')
+            {
+                cout << "\nNot enough points or invalid choice!" << endl;
+            }
+            getch();
         }
         if (action2 == '4')
         {
