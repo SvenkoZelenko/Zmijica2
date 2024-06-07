@@ -155,7 +155,7 @@ int main()
                     bool postoji = false;
                     for (int i = 0; i < brIgraca; i++)
                     {
-                        if (strcmp(igraci[i].ime, igraci[brIgraca].ime) == 0)  //igraci[i].ime --> trenutni igrac iz polja, igraci[brIgraca].ime --> ko je igrao sad
+                        if (strcmp(igraci[i].ime, igraci[brIgraca].ime) == 0) // igraci[i].ime --> trenutni igrac iz polja, igraci[brIgraca].ime --> ko je igrao sad
                         {
                             if (score > igraci[i].score)
                             {
@@ -174,7 +174,7 @@ int main()
 
                     // zapisivanje u datoteku
                     ofstream inDatoteka("leaderboard.bin", ios::binary | ios::trunc);
-                    inDatoteka.write((char *)igraci, sizeof(Igrac)*brIgraca);
+                    inDatoteka.write((char *)igraci, sizeof(Igrac) * brIgraca);
                     inDatoteka.close();
 
                     usleep(n);
@@ -188,7 +188,7 @@ int main()
             ifstream inDatoteka("leaderboard.bin", ios::binary);
             int citac = 0;
             while (inDatoteka.read((char *)&igraci[citac], sizeof(Igrac)))
-            {   
+            {
                 citac++; // tako da zna koliko je procitano igraca, svaki put kad procita igraca poveca
             }
             inDatoteka.close();
@@ -203,6 +203,9 @@ int main()
             }
             cout << "Pritisnite bilo koju tipku za povratak na izbornik" << endl;
             getch();
+        }
+        if (action2 == '3')
+        { // ducan 1. -2 speed za zmijucu, 2.dodatni extra 1 život, 3. malo vise jabuka onak 2x, 4. myb onak da nestaju bumbice  5. bonus pointovi kad se pojede jabuka (2x)
         }
         if (action2 == '4')
         {
