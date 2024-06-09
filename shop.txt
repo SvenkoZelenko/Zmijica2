@@ -1,4 +1,12 @@
+
 BoljeJabuke  10
+Jabuke donose 10 bodova umjesto 5
+
 EkstraZivot  15
+Moze se samo jednom iskoristiti
+
 ManjeBombi   20
+Mice bombe iz polja
+
 ViseJabuka   25
+Stvara dvostruko vise jabuka unutar polja

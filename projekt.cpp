@@ -26,6 +26,8 @@ int main()
     char action1;
     char x = 4, y = 4;
     char xx, yy;
+    char xxBomba, yyBomba;
+    char xxJabuka, yyJabuka;
     int jabuka = 0;
     int score = 1;
     time_t diraoJabuku;
@@ -71,6 +73,18 @@ int main()
             srand(time(NULL));
             xx = rand() % 13 + 1;
             yy = rand() % 13 + 1;
+
+            if (!ManjeBombi)
+            {
+                xxBomba = rand() % 13 + 1;
+                yyBomba = rand() % 13 + 1;
+            }
+
+            if (ViseJabuka)
+            {
+                xxJabuka = rand() % 13 + 1;
+                yyJabuka = rand() % 13 + 1;
+            }
 
             // unos imena
             cout << "Unesite 4-slovno ime: ";
@@ -119,7 +133,7 @@ int main()
                 polje[x][y] = '@';
 
                 // gleda da li je zmijica pojela jabuku
-                if (x == xx && y == yy)
+                if (x == xx && y == yy || (x == xxJabuka && y == yyJabuka))
                 {
                     jabuka = 0;
                     score += BoljeJabuke ? 11 : 6;
@@ -133,8 +147,18 @@ int main()
                     score -= 1;
                     do
                     {
-                        xx = rand() % 15 + 1;
-                        yy = rand() % 15 + 1;
+                        xx = rand() % 13 + 1;
+                        yy = rand() % 13 + 1; // za pomicanje jabuke
+                        do
+                        {
+                            xxBomba = rand() % 13 + 1;
+                            yyBomba = rand() % 13 + 1;
+                        } while (xx == xxBomba && yy == yyBomba); // da bomba i jabuka ne budu na istom mjestu
+                        do
+                        {
+                            xxJabuka = rand() % 13 + 1;
+                            yyJabuka = rand() % 13 + 1;
+                        } while (xx == xxJabuka && yy == yyJabuka && xxJabuka == xxBomba && yyJabuka == yyBomba);
                     } while (polje[xx][yy] != ' ');
                     jabuka = 1;
                     diraoJabuku = trenutno;
@@ -143,18 +167,27 @@ int main()
                 // jabuka
                 polje[xx][yy] = '0';
 
+                // ViseJabuka
+                if (ViseJabuka)
+                    polje[xxJabuka][yyJabuka] = '0';
+
+                // bomba
+                if (!ManjeBombi)
+                    polje[xxBomba][yyBomba] = 'X';
+
                 // ispisivanje okvira
                 for (int i = 0; i < 15; i++)
                 {
                     for (int j = 0; j < 15; j++)
-                        printf("%c ", polje[i][j]);
-                    printf("\n");
+                        cout << polje[i][j] << " ";
+                    cout << "\n";
                 }
 
                 // gleda da li se zmijica zabila u zid
-                if (x >= 14 || x <= 0 || y >= 14 || y <= 0)
+                if (x >= 14 || x <= 0 || y >= 14 || y <= 0 || (x == xxBomba && y == yyBomba))
                 {
-                    if (EkstraZivot == true){
+                    if (EkstraZivot == true)
+                    {
                         EkstraZivot = false;
                         goto pocetak;
                     }
@@ -190,7 +223,7 @@ int main()
                     usleep(n);
                     goto izbornik;
                 }
-                usleep(40000);
+                usleep(70000);
             } while (1);
         }
         if (action2 == '2')
@@ -206,7 +239,9 @@ int main()
             sort(igraci, igraci + citac, cmp);
 
             system("cls");
-            cout << "Ljestvica:" << endl;
+            cout << "####################" << endl;
+            cout << "     LJESTVICA      " << endl;
+            cout << "####################" << endl;
             for (int i = 0; i < citac; i++)
             {
                 cout << igraci[i].ime << " " << igraci[i].score << endl;
@@ -219,32 +254,79 @@ int main()
             ifstream ducan("shop.txt");
             string citac;
             system("cls");
+            cout << "####################" << endl;
+            cout << "       DUCAN        " << endl;
+            cout << "####################" << endl;
             while (getline(ducan, citac))
             {
                 cout << citac << endl;
             }
-            cout << "Vas trenutacni iznos: " << score << endl;
+            cout << "\nVas trenutacni iznos: " << score << endl;
             cout << "Unesite sto zelite kupiti ili unesite 0 da se vratite u izbornik: " << endl;
             char izbor = getch();
-            if (izbor == '1' && score >= 10)
+            if (izbor == '1')
             {
-                score -= 10;
-                BoljeJabuke = true;
-
-                cout << "Kupili ste BoljeJabuke" << endl;
-                cout << "Ostatak: " << score << endl;
+                if (score >= 10)
+                {
+                    score -= 10;
+                    BoljeJabuke = true;
+                    cout << "Kupili ste BoljeJabuke" << endl;
+                    cout << "Ostatak: " << score << endl;
+                }
+                else
+                {
+                    cout << "\nNemate dovoljno bodova za BoljeJabuke" << endl;
+                }
             }
-            if (izbor == '2' && score >= 15)
+            else if (izbor == '2')
             {
-                score -= 10;
-                EkstraZivot = true;
-
-                cout << "Kupili ste EkstraZivot" << endl;
-                cout << "Ostatak: " << score << endl;
+                if (score >= 15)
+                {
+                    score -= 15;
+                    EkstraZivot = true;
+                    cout << "Kupili ste EkstraZivot" << endl;
+                    cout << "Ostatak: " << score << endl;
+                }
+                else
+                {
+                    cout << "\nNemate dovoljno bodova za EkstraZivot" << endl;
+                }
             }
-            else if (izbor != '0')
+            else if (izbor == '3')
             {
-                cout << "\nNot enough points or invalid choice!" << endl;
+                if (score >= 20)
+                {
+                    score -= 20;
+                    ManjeBombi = true;
+                    cout << "Kupili ste ManjeBombi" << endl;
+                    cout << "Ostatak: " << score << endl;
+                }
+                else
+                {
+                    cout << "\nNemate dovoljno bodova za ManjeBombi" << endl;
+                }
+            }
+            else if (izbor == '4')
+            {
+                if (score >= 25)
+                {
+                    score -= 25;
+                    ViseJabuka = true;
+                    cout << "Kupili ste ViseJabuka" << endl;
+                    cout << "Ostatak: " << score << endl;
+                }
+                else
+                {
+                    cout << "\nNemate dovoljno bodova za ViseJabuka" << endl;
+                }
+            }
+            else if (izbor == '0')
+            {
+                goto izbornik;
+            }
+            else
+            {
+                cout << "\nKrivi unos, pokusajte ponovo" << endl;
             }
             getch();
         }
