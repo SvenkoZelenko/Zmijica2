@@ -20,7 +20,6 @@ bool cmp(Igrac &a, Igrac &b)
 int main()
 {
     int izbor, action2;
-    int n = 1500000;
     int i, j;
     char polje[15][15];
     char action1;
@@ -220,7 +219,7 @@ int main()
                     inDatoteka.write((char *)igraci, sizeof(Igrac) * brIgraca);
                     inDatoteka.close();
 
-                    usleep(n);
+                    usleep(1500000);
                     goto izbornik;
                 }
                 usleep(70000);
