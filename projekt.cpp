@@ -248,7 +248,7 @@ int main()
             cout << "Pritisnite bilo koju tipku za povratak na izbornik" << endl;
             getch();
         }
-        if (action2 == '3') // ducan 1. -2 speed za zmijucu, 2.dodatni extra 1 život, 3. malo vise jabuka onak 2x, 4. myb onak da nestaju bumbice  5. bonus pointovi kad se pojede jabuka (2x)
+        if (action2 == '3')
         {
             ifstream ducan("shop.txt");
             string citac;
@@ -265,7 +265,11 @@ int main()
             char izbor = getch();
             if (izbor == '1')
             {
-                if (score >= 10)
+                if (BoljeJabuke)
+                {
+                    cout << "Vec ste kupili BoljeJabuke!" << endl;
+                }
+                else if (score >= 10)
                 {
                     score -= 10;
                     BoljeJabuke = true;
@@ -273,13 +277,16 @@ int main()
                     cout << "Ostatak: " << score << endl;
                 }
                 else
-                {
                     cout << "\nNemate dovoljno bodova za BoljeJabuke" << endl;
-                }
+
             }
             else if (izbor == '2')
             {
-                if (score >= 15)
+                if (EkstraZivot)
+                {
+                    cout << "Vec ste kupili EkstraZivot!" << endl;
+                }
+                else if (score >= 15)
                 {
                     score -= 15;
                     EkstraZivot = true;
@@ -287,13 +294,16 @@ int main()
                     cout << "Ostatak: " << score << endl;
                 }
                 else
-                {
                     cout << "\nNemate dovoljno bodova za EkstraZivot" << endl;
-                }
+
             }
             else if (izbor == '3')
             {
-                if (score >= 20)
+                if (ManjeBombi)
+                {
+                    cout << "Vec ste kupili ManjeBombi!" << endl;
+                }
+                else if (score >= 20)
                 {
                     score -= 20;
                     ManjeBombi = true;
@@ -301,13 +311,15 @@ int main()
                     cout << "Ostatak: " << score << endl;
                 }
                 else
-                {
                     cout << "\nNemate dovoljno bodova za ManjeBombi" << endl;
-                }
             }
             else if (izbor == '4')
             {
-                if (score >= 25)
+                if (ViseJabuka)
+                {
+                    cout << "Vec ste kupili ViseJabuka!" << endl;
+                }
+                else if (score >= 25)
                 {
                     score -= 25;
                     ViseJabuka = true;
@@ -315,18 +327,14 @@ int main()
                     cout << "Ostatak: " << score << endl;
                 }
                 else
-                {
                     cout << "\nNemate dovoljno bodova za ViseJabuka" << endl;
-                }
             }
             else if (izbor == '0')
             {
                 goto izbornik;
             }
             else
-            {
                 cout << "\nKrivi unos, pokusajte ponovo" << endl;
-            }
             getch();
         }
         if (action2 == '4')
